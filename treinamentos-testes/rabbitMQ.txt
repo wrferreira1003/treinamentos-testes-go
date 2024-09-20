@@ -1,0 +1,12 @@
+// RabbitMQ
+
+Visa facilitar a comunicacao entre servicos
+
+- RabbitMQ:
+  - e um sistema de mensageria open source
+  - e um broker de mensagens baseado em protocolo AMQP (Advanced Message Queuing Protocol)
+  - e um sistema de mensageria leve e eficiente
+  - e um sistema de mensageria altamente escalavel
+  - e um sistema de mensageria altamente disponivel
+  - e um sistema de mensageria altamente seguro
+  - e um sistema de mensageria altamente confiavel

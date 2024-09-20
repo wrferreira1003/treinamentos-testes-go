@@ -1,0 +1,111 @@
+Runtime
+
+Multiprocessing esta relacionado a processos diferentes, ou seja, cada processo tem sua memoria e recursos.
+Multithreading esta relacionado ao mesmo processo, ou seja, compartilhamento de memoria, e recursos do processo pai.
+
+
+Diferenca entre concorrencia e paralelismo:
+
+Concorrência: é a capacidade de executar multiplas tarefas, mas não necessariamente ao mesmo tempo. 
+Usado apenas 1 CPU.
+
+Paralelismo: é a capacidade de executar multiplas tarefas ao mesmo tempo.
+
+O Go é um linguagem de programação que suporta paralelismo, ou seja, é capaz de executar multiplas tarefas ao 
+mesmo tempo.
+Ele usa o paralelismo pela CPU, ou seja, ele divide a CPU em multiplos núcleos e cada núcleo executa uma tarefa.
+
+
+Threads:
+
+Threads sao processos leves que compartilham o mesmo espaço de memoria.
+Scheduler: Gerencia as threads, ou seja, ele decide quando uma thread vai rodar e quando ela vai parar.
+
+temos 2 tipos de Scheduler:
+
+1. Preemptive: Tempo de execucao limitado. Interrompe a thread para dar chance para outra thread rodar.
+2. Cooperative: Esperar uma tarefa finalizar para dar chance para outra thread rodar.
+
+Go tem sua propria implementacao de scheduler, que é cooperativo, mas em algumas situacoes onde o go percebe que uma goroutine 
+esta demorando demais, ele usa o preemptive para interromper a goroutine e dar chance para outra goroutine rodar.
+
+Ele funciona assim:
+
+O scheduler do Go divide o tempo de CPU de uma goroutine em varios blocos pequenos, chamados de "quantum".
+Cada goroutine recebe um quantum para executar, e se ela nao finalizar a execucao do quantum, o scheduler 
+interrompe a goroutine e pula para a proxima.
+
+Goroutines:
+
+Goroutines sao threads leves que sao gerenciadas pelo Go. Elas sao mais leves que threads convencionais 
+porque nao tem um sistema operacional subjacente.
+
+gp Routines: "go"
+
+Precisamos colocar para rodar dentro de um "loop" para que o scheduler possa gerenciar as goroutines.
+
+O GO tem WaitGroup para esperar as goroutines terminarem.
+Informar que terminou uma operacao: "done"
+Esperar uma operacao terminar: "wait"
+
+Apache bench: ferramenta de teste de carga para web. Com ele podemos testar o desempenho de uma aplicacao web.
+Ele faz um request para o servidor e mede o tempo de resposta.
+
+ab -c 100 -n 100 http://localhost:8080/
+
+-c: numero de requisicoes concorrentes
+-n: numero de requisicoes
+
+Precisamos sempre analisar a questao da concorrencia e paralelismo de nossa aplicacao.
+
+Mutex: é uma estrutura que sincroniza o acesso a memoria de uma aplicacao.
+Mutex e WaitGroup sao usados para sincronizar o acesso a memoria de uma aplicacao.
+Mutex e WaitGroup sao usados para sincronizar o acesso a memoria de uma aplicacao.
+
+Com o GO, temos o sync.Mutex, que e uma estrutura de sincronizacao de memoria.
+
+O go nos permite verificar se temos problemas de concorrencia usando o -race
+-go run -race main.go
+
+O GO facilita a nossa vida com algumas funcoes para trabalhar com multithreading.
+
+-atomic: atomic e um pacote que nos permite trabalhar com atomic variables. Atomic variables sao variaveis que sao 
+atomicas, ou seja, elas nao precisam de mutex para serem acessadas. Elas sao acessadas de forma atomica, ou seja, 
+de forma isolada, sem problemas de concorrencia.
+
+
+Inicando com Channels:
+
+- Channels sao um meio de comunicacao entre goroutines. Elas podem ser usadas para enviar e receber dados entre goroutines.
+- Channels sao tipos de dados first-class citizens, ou seja, elas podem ser usadas como parametros de funcoes, podem ser 
+retornadas de funcoes e podem ser atribuídas a variaveis.
+- Channels podem ser concorrentes, ou seja, elas podem ser usadas para sincronizar o acesso a memoria de uma aplicacao.
+- Channels podem ser unbuffered, ou seja, elas podem armazenar apenas um valor por vez.
+- Channels podem ser buffered, ou seja, elas podem armazenar mais de um valor.
+
+Forever loop: loop que nunca termina, ele roda infinitamente.
+    forever := make(chan bool) // Criando um canal vazio
+
+
+Eu posso ter um for que manda os dados para o canal e um outro for que pegar os dados no canal.
+
+WaitGroup: e uma estrutura que nos permite esperar uma goroutine terminar. 
+Channel Direction: e uma direcao que nos permite definir se o canal e somente leitura ou somente escrita.
+ex:
+func sum(nums []int, c chan<- int) // Canal somente escrita
+func printer(c <-chan int) // Canal somente leitura
+
+A seta (<-) define o sentido do canal, se e somente leitura ou somente escrita.
+
+Receive Operation: <-
+Send Operation: ->
+
+// Load Balancer: e uma estrutura que nos permite distribuir o trabalho entre multiplas goroutines.
+
+// Producer: e uma goroutine que manda dados para o canal.
+// Consumer: e uma goroutine que recebe dados do canal.
+
+// Select: e uma estrutura que nos permite esperar uma goroutine terminar.
+
+Canais com buffer: 
+    Buffered channels: e uma estrutura que nos permite armazenar mais de um valor em um canal.

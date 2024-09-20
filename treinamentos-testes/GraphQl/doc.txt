@@ -1,0 +1,20 @@
+GraphQl
+
+- Linguagem de consulta para APIs
+- É um padrão que define como uma aplicação cliente pode requisitar dados de uma aplicação servidor.
+- Ele permite que o cliente especifique exatamente os dados que ele precisa
+
+ggLgen criada pelo facebook é uma ferramenta que gera um parser para o GraphQl, a partir do schema.
+
+- schema: é a definição da API, é onde definimos os tipos de dados, as entradas, as saidas, os mutations, etc.
+- query: é a consulta que o cliente faz para o servidor.
+- mutation: é o comando que o cliente faz para o servidor.
+- subscription: é o comando que o cliente faz para o servidor.
+
+Criar o tools go: printf '//go:build tools\npackage tools\nimport (_ "github.com/99designs/gqlgen"\n _ "github.com/99designs/gqlgen/graphql/introspection")' | gofmt > tools.go 
+
+- go:build tools: informa ao Go que o diretorio contem ferramentas que são usadas durante o build.
+- package tools: define um pacote para agrupar as ferramentas.
+- import: importa os pacotes necessarios.
+
+- O ggLgen vai criar uma estrutura de diretorios e arquivos que vai auxiliar na criação da API.

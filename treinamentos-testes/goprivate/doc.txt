@@ -1,0 +1,22 @@
+// Trabalhar com Repositorios Privados
+
+
+1 - Como conseguir utilizar um repositorio privado no Go?
+
+- podemos passar para o GO atraves da variavel de ambiente GOPRIVATE, os caminhos dos
+repositorios que o GO pode acessar.
+
+- para isso, precisamos gerar um token na plataforma do GIT (GitHub, GitLab, etc), caso nao tenha um, precisamos criar um.
+
+Exemplo:
+
+GOPRIVATE=github.com/rcfacil/*
+
+// Go Proxi vs Vendor
+
+- Go Proxy: Servidor que armazena os pacotes do Go, para que o Go possa baixar os pacotes de forma mais rapida e eficiente.
+
+- Vendor: Diretório que armazena os pacotes do Go que foram baixados. 
+
+- roda: go mod vendor // Ele vai criar um diretorio vendor com todos os pacotes que o projeto precisa.
+

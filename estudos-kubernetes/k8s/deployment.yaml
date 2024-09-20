@@ -1,0 +1,28 @@
+apiVersion: apps/v1 # API version
+kind: Deployment # Kind se refere ao tipo de recurso que estamos criando
+metadata:
+  name: goserver # Nome do recurso
+spec: # Especificação do recurso
+  replicas: 3 # Quantidade de replicas
+  selector: # Selecionador de pods
+    matchLabels:
+      app: goserver # Label que será utilizado para selecionar os pods
+  
+  template: # Template para criar os pods
+    metadata: # Metadados do pod
+      labels:
+        app: goserver # Label que será utilizado para selecionar os pods
+    spec: # Especificação do pod
+      #Por padrão, o kubernetes cria um pod com um container
+      containers: # Containers do pod
+        - name: goserver # Nome do container
+          image: goserver:latest # Imagem do container
+          resources: # Recursos do container
+            requests: # Recursos mínimos do container
+              memory: "64Mi"
+              cpu: "250m"
+            limits: # Recursos máximos do container
+              memory: "128Mi"
+              cpu: "500m"
+          ports: # Portas que o container expõe
+            - containerPort: 8080 # Porta do container

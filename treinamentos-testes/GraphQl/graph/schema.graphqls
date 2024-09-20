@@ -1,0 +1,36 @@
+type Category {
+  id: ID! # ! significa que é obrigatório
+  name: String! # ! significa que é obrigatório
+  description: String
+  courses: [Course!]!
+}
+
+type Course {
+  id: ID!
+  name: String!
+  description: String
+  category: Category!
+}
+
+input NewCategory {
+  name: String!
+  description: String
+}
+
+input NewCourse {
+  name: String!
+  description: String
+  categoryId: ID!
+}
+
+# Query é o ponto de entrada para qualquer consulta de dados
+type Query {
+  categories: [Category!]!
+  courses: [Course!]!
+}
+
+# Mutation é o ponto de entrada para qualquer alteração de dados
+type Mutation {
+  createCategory(input: NewCategory!): Category!
+  createCourse(input: NewCourse!): Course!
+}

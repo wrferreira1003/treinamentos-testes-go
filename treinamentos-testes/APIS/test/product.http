@@ -1,0 +1,38 @@
+
+
+POST http://localhost:8085/products
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjU0NDY3MjEsInN1YiI6IjU0NTYyNTBjLTA0OGQtNGVlNy04MTFhLWY3ZGI3MjMxZWIyNiJ9.kGT7R0qbzvsPA8HsTC3KRZ8Ll8kRXvZJiBqjGNuhJUw
+Content-Type: application/json
+
+{
+	"name": "Product 1",
+	"price": 10.00
+}
+
+####
+
+GET http://localhost:8085/products/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjU0NDY3MjEsInN1YiI6IjU0NTYyNTBjLTA0OGQtNGVlNy04MTFhLWY3ZGI3MjMxZWIyNiJ9.kGT7R0qbzvsPA8HsTC3KRZ8Ll8kRXvZJ
+
+###
+
+GET http://localhost:8085/products/5a39de64-f4ec-4b49-b6c3-8e734c428eab
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjUyNzY4OTcsInN1YiI6IjE0MjUyZmVkLWNlZGItNGEyZi1iOTI3LTExNzJlNTIzODg0ZiJ9.GRq2PiCmIV-Dh2KGjqBti8wyyH6cuCl-8lqZ8vrxPsk
+
+
+###
+
+GET http://localhost:8085/products?page=1&limit=5&sort=asc
+
+###
+PUT http://localhost:8085/products/5a39de64-f4ec-4b49-b6c3-8e734c428eab
+Content-Type: application/json
+
+{
+	"name": "Product updated",
+	"price": 100.00
+}
+
+###
+
+DELETE http://localhost:8085/products/886ba194-d5fe-4900-8c83-29e31a177c78
