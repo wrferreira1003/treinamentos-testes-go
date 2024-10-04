@@ -1,0 +1,125 @@
+clean architecture - 
+
+Objetivos de uma boa arquitetura de software:
+
+1. Suporte ao ciclo de vida do software
+2. Facilidade de teste
+3. Isolamento de dependências
+4. Facil de entender e modificar
+5. Facil de fazer deploy
+
+Minimizar o custo de vida util do sistema e maximizar a produtividade do programador.
+
+- Regras de negocio trazem o real valor para o software.
+- Detalhes ajudam a suportar as regras de negocio.
+- Detalhes nao devem impactar as regras de negocio.
+- Frameworks, banco de dados, apis, nao devem impactar as regras de negocio.
+
+- DDD - Domain Driven Design
+Atacar a complexidade no coração do sistema.
+
+- Use cases - casos de uso
+
+- A Clean Architecture e orientada a caso de uso, representando um intencao de uso do sistema.
+- Clareza de cada componente do sistema.
+- Detalhes nao devem impactar nas regras de negocio.
+- Frameworks, banco de dados, apis, nao devem impactar nas regras de negocio.
+
+- Use case Vs SRP (Single Responsibility Principle) Principio da responsabilidade unica.
+
+    - Temos a tendencia de reaproveitar codigo, use cases por serem muito parecidos.
+    - Todos os use cases devem ser implementados de forma isolada.
+
+    - SRP - Quando estamos inferindo a regra! mudam por razoes diferente estamos violando o SRP. Nesse caso 
+    precisamos criar um novo use case.
+
+- Duplicacao real Vs duplicacao acidental
+
+    - Duplicidade real:
+        - Temos que implementar o mesmo codigo em varios lugares.
+
+    - Duplicidade acidental:
+        - Temos que implementar o mesmo codigo em varios lugares.
+
+- Limites Arquiteturais
+
+    Tudo que nao impacta nas regras de negocio deve esta em um limite arquitetural
+    diferente. 
+
+    ex: Nao será o frontend, banco de dados que mudarao as regras de negocio da aplicacao.
+
+- Input Vs Output
+
+    - Input:
+        - Dados que chegam do exterior para o sistema.
+
+    - Output:
+        - Dados que saem do sistema para o exterior.
+
+    Simplifique o raciocinio ao criar um software sempre pensando em input e output.
+
+- 
+
+
+DTO - Data Transfer Object
+    - Ajuda a trafegar os dados entre os limites arquiteturais.
+    - Classe que representa os dados que chegam do exterior para o sistema.
+    - Classe que representa os dados que saem do sistema para o exterior.
+
+    - Objeto anemico, nao possui regras de negocio, apenas representa os dados.
+
+Presenters
+    - Objetos de transformacao, adequa o DTO de output no formato correto para entregar o resultado.
+    - Ex: Um sistema pode ter diversos formatos de entrega: ex: xml, json, protobuf, GraphQL, etc.
+    - O Presenter e a camada que sabe como transformar o DTO de output no formato correto para entrega.
+
+Entities vs DDD
+
+    Entities da clean Architecture sao diferentes de entities do DDD.
+    Clean Architecture define entity como camada de regras de negovio, elas se aplicam em qualquer situacao.
+    Nao ha definicao explicita de como criar as entities. 
+    Normalmente utilizamos tatica do DDD para criar as entities.
+
+    - Entities = Agregados + Domain services do DDD
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
