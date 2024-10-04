@@ -1,0 +1,26 @@
+syntax = "proto3";
+package pb;
+option go_package = "internal/pb";
+
+// categoria
+message Category {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+}
+// cria uma nova categoria
+message CreateCategoryRequest {
+    string name = 1;
+    string description = 2;
+}
+
+// Retorna uma categoria
+message CategoryResponse {
+    Category category = 1;
+}
+
+// Serviço de categoria de curso
+service CourseCategory {
+    // Cria uma nova categoria
+    rpc CreateCategory(CreateCategoryRequest) returns (CategoryResponse) {} 
+}

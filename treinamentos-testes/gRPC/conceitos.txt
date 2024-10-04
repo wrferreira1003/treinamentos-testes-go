@@ -1,0 +1,122 @@
+gRPC
+
+É um framework desenvolvido pelo Google que permite a comunicação entre 
+sistemas distribuídos. Ele é baseado em HTTP/2 e utiliza protocolos 
+modernos como JSON sobre HTTP/2 para comunicação.
+
+- Extremamente leve e performático
+- Suporta vários linguagens de programação
+- Utiliza protocolos modernos como HTTP/2
+- Suporta autenticação e autorização
+- Suporta streaming bidirecional
+- Suporta compressão de dados
+- Suporta TLS (Transport Layer Security)
+- Suporta gRPC-Web para comunicação com navegadores web
+
+Onde utilizar?
+
+- Ideal para microserviços, comunicacao entre sistemas
+- Mobile, Browser e Backend.
+- Geracao das bibliotecas de forma automatica.
+- Streaming bidirecional, utilizando HTTP/2.
+
+Linguagens suporte Oficial:
+
+- C# / .NET
+- Go
+- Java
+- Node
+- PHP
+- Python
+- Ruby
+
+Protocol Buffers (Protocol Buffers é uma linguagem de definição de interface de dados)
+- É uma linguagem neutra de definição de interface de dados, formato binario, um schema especifico.
+- Precisa montar o binario e deserializar para utilizar.
+- Suporta vários tipos de dados, como inteiros, strings, arrays, entre outros.
+- Suporta a serialização de dados em binário, JSON, entre outros.
+- Suporta a definição de métodos de comunicação, como GET, POST, PUT, DELETE, entre outros.
+
+Protocol Buffers Vs JSON
+
+- Arquivos binarios < JSON
+- Processo de serializacao e mais leve (cpu) do que JSON
+- Mais performatico
+- Processo é mais veloz
+- Menos recurso de rede
+
+syntax = "proto3";
+
+message SearchRequest {
+    string query = 1 (A posicao 1 é a primeira propriedade);
+    int32 page_number = 2 (A posicao 2 é a segunda propriedade);
+    int32 result_per_page = 3 (A posicao 3 é a terceira propriedade);
+}
+
+HTTP/2
+
+- Nome original criado pela google era SPDY (SPDY é um protocolo de camada de aplicacao sobre HTTP/1.1)
+- Suporta multiplexacao, onde varias requisicoes podem ser feitas ao mesmo tempo.
+- Dados trafegados em binario, ao contrario de HTTP/1.1 que é em texto.
+- Utiliza a mesma conexao tcp para varias requisicoes/respostas, servico de multiplexacao.
+- Header comprimidos utilizando LZ77, HPACK.
+- Suporta server push, onde o servidor pode enviar dados ao cliente antes mesmo que a requisicao seja feita.
+- Suporta TLS (Transport Layer Security), garantindo uma comunicacao segura.
+- Suporta gRPC-Web para comunicação com navegadores web.
+
+gRPC - API "unary"
+
+- Requisicao e resposta sao unidirecionais, ou seja, uma requisicao e uma resposta.
+- Exemplo: GET /info
+
+gRPC - API "Server Streaming"
+
+- O cliente envia uma requisicao ao servidor e o servidor envia uma resposta de streaming.
+- Ele recebe uma requisicao e envia varios pacotes de resposta.
+- Exemplo: Streaming de video.
+
+gRPC - API "Client Streaming"
+
+- O cliente envia uma requisicao de streaming ao servidor.
+- Ele envia varios pacotes de requisicao e o servidor responde com um unico pacote.
+- Exemplo: Upload de arquivos.
+
+gRPC - API "Bidirectional Streaming"
+
+- Ambos os lados podem enviar requisicoes e respostas de streaming.
+- Exemplo: Chat em tempo real.
+
+Rest Vs gRPC
+
+Rest
+- Texto / JSON
+- Unidirecional
+- Alta latencia
+- sem contrato (maior chance de erro)
+- Sem suporte a streaming
+- Design pre-definido (GET, POST, PUT, DELETE, etc)
+
+gRPC
+- Binario / Protocol Buffers
+- Bidirecional e Assincrono
+- Baixa latencia
+- Contrato pre-estabelecido
+- Suporte a streaming
+- Design flexivel
+- Geracao de codigo
+
+Instalando compilador e plugins em Go
+
+- Documentacao do gRPC: https://grpc.io/docs/protoc-installation/
+
+
+precisamos ter o compilador do protocol buffers instalado
+
+1 - Instalar o compilador do protocol buffers - protoc 
+    https://grpc.io/docs/protoc-installation/
+    
+2 - Instalar o plugin do Go - go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+3 - Instalar o plugin do Go - go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+
+
+
