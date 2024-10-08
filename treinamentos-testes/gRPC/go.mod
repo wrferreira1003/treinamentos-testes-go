@@ -4,9 +4,9 @@ go 1.22.5
 
 require (
 	github.com/google/uuid v1.6.0
-	github.com/mattn/go-sqlite3 v1.14.23
-	google.golang.org/grpc v1.67.0
-	google.golang.org/protobuf v1.34.2
+	github.com/mattn/go-sqlite3 v1.14.24
+	google.golang.org/grpc v1.67.1
+	google.golang.org/protobuf v1.35.1
 )
 
 require (

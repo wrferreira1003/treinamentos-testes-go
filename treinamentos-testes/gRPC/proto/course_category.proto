@@ -1,26 +1,31 @@
 syntax = "proto3";
+
+// Definindo o pacote
 package pb;
+
+// Definindo o caminho do pacote
 option go_package = "internal/pb";
 
-// categoria
+// Definindo a mensagem Category
 message Category {
-    string id = 1;
+    string id = 1; // 1,2,3 e assim por diante é a ordem que o campo aparece na mensagem
     string name = 2;
     string description = 3;
 }
-// cria uma nova categoria
+
+// Para criar uma categoria
 message CreateCategoryRequest {
     string name = 1;
     string description = 2;
 }
 
-// Retorna uma categoria
+// Criar um serviço de categoria
 message CategoryResponse {
     Category category = 1;
 }
 
-// Serviço de categoria de curso
-service CourseCategory {
-    // Cria uma nova categoria
-    rpc CreateCategory(CreateCategoryRequest) returns (CategoryResponse) {} 
+service CategoryService {
+    // Ele envia uma request para o servidor e o servidor retorna uma resposta
+    rpc CreateCategory (CreateCategoryRequest) returns (CategoryResponse) {}
 }
+
