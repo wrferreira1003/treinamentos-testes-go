@@ -26,6 +26,6 @@ message CategoryResponse {
 
 service CategoryService {
     // Ele envia uma request para o servidor e o servidor retorna uma resposta
-    rpc CreateCategory (CreateCategoryRequest) returns (CategoryResponse) {}
+    rpc CreateCategory (CreateCategoryRequest) returns (Category) {}
 }
 
