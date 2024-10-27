@@ -1,0 +1,53 @@
+SQLC - Compile SQL to type safe Go
+
+- Trabalhando com migrations - golang-migrate
+github.com/golang-migrate/migrate/v4
+
+1 - Criar o arquivo de migration
+    Rodar o comando: migrate create -ext=sql -dir=./sql/migrations -seq init
+
+    -ext: tipo do arquivo
+    -dir: diretorio onde vai criar o arquivo
+    -seq: sequencia do arquivo (como sera a ordem)
+
+2 - Com os arquivos criados, criamos as queries no arquivo init.up e no init.down criamos o rollback (
+    rollback é o que vai rodar caso algo de errado na migration)
+
+3 - Termos o banco de dados criado e conectado, podemos rodar as migrations, nosso exemplo estamos usando o mysql, mas pode ser
+usado em outros bancos de dados como postgres, mysql, etc. Estamos usando o docker para subir um container com o mysql.
+
+4 - Agora pode rodar o comando para criar o banco de dados:
+    migrate -path=sql/migrations -database "mysql://root:root@tcp(localhost:3306)/courses" -verbose up
+
+5 - Caso queira excluir a migration, podemos rodar o down, o down vai rodar o arquivo init.down, entao precisa ser preenchido com o 
+    rollback das migrations, exemplo:
+    
+    DROP TABLE IF EXISTS courses;
+    DROP TABLE IF EXISTS categories;
+
+    Rode o comando:
+    migrate -path=sql/migrations -database "mysql://root:root@tcp(localhost:3306)/courses" -verbose down
+
+
+SQLC - Compile SQL to type safe code - A ideia e ter um codigo mais seguro, com autocompletion, entre outros.
+instalacao: brew install sqlc
+
+Conseguir fazer o mapeamento com as queries, para que o codigo seja mais seguro, com autocompletion, entre outros.
+
+1 - criar uma arquivo sqlc.yaml na raiz do projeto
+
+2 - criar o arquivo queries.sql na raiz do projeto
+
+3 - rodar o comando: sqlc generate
+
+
+
+
+
+
+
+
+
+
+
+

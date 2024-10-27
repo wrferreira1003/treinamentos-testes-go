@@ -13,6 +13,8 @@ message Category {
     string description = 3;
 }
 
+message Empty {}
+
 // Para criar uma categoria
 message CreateCategoryRequest {
     string name = 1;
@@ -24,8 +26,33 @@ message CategoryResponse {
     Category category = 1;
 }
 
+message CategoryList {
+    // repeated é um array
+    repeated Category categories = 1;
+}
+
+// Pegar uma categoria por ID
+message GetCategoryGetRequest {
+    string id = 1;
+}
+
+// criar os serviços para criar uma categoria e listar todas as categorias
 service CategoryService {
     // Ele envia uma request para o servidor e o servidor retorna uma resposta
     rpc CreateCategory (CreateCategoryRequest) returns (Category) {}
+
+    // Vou enviar várias requests para o servidor e o servidor vai retornar uma resposta
+    rpc CreateCategoryStream (stream CreateCategoryRequest) returns (CategoryList) {}
+
+    // Stream bidirecional
+    rpc CreateCategoryStreamBidirectional (stream CreateCategoryRequest) returns (stream Category) {}
+
+    rpc ListCategories (Empty) returns (CategoryList) {}
+    rpc GetCategory (GetCategoryGetRequest) returns (Category) {}
+
 }
+
+
+
+
 

@@ -1,0 +1,8 @@
+UploadsS3
+
+Pontos importantes:
+- Precisa se preoculpar com as Go routines, para nao explodir a memoria, pois se colocar
+para rodar todas de uma vez, vai consumir toda a memoria.
+- Usar os canais para poder controlar o numero de arquivos a serem processados simultaneamente.
+- Usar os canais para controlar caso de erro em um upload, envia o erro para esse canal para
+ser processado posteriormente.

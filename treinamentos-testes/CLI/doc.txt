@@ -1,0 +1,8 @@
+CLI - Comand Line Interface
+
+Biblitecas mais famosa seria Cobra.
+
+Objetivo: Criar uma CLI para gerenciar tarefas, onde o usuario possa adicionar, listar, deletar e marcar tarefas como concluidas.
+
+1 - Inicializar o projeto normalmente com o go mod init.
+2 - Criar um ponto de interacao usando o CLI.
