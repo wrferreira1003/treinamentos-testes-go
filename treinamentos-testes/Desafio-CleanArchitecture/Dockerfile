@@ -1,14 +1,18 @@
-FROM golang:1.22
-
+# Etapa 1: Dependências
+FROM golang:1.22-alpine AS dependencies
 WORKDIR /app
+COPY go.mod go.sum ./
+RUN go mod download
 
-COPY . .
+# Etapa 2: Ambiente de Desenvolvimento com CompileDaemon
+FROM golang:1.22-alpine AS dev
+WORKDIR /app
+RUN go install github.com/githubnemo/CompileDaemon@latest
+COPY --from=dependencies /app /app
+COPY . /app
 
-RUN go mod tidy
+# CompileDaemon observa o diretório correto
+CMD ["CompileDaemon", "--directory=/app", "--build=go build -o /app/main ./cmd/main.go", "--command=/app/main"]
 
-RUN go build -o main .
 
-CMD ["./main"]
-
-EXPOSE 8080
 

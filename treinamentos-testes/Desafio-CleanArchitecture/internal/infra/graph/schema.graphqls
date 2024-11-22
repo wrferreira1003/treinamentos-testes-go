@@ -1,0 +1,25 @@
+# GraphQL schema, primeiro passo para criar a API
+
+type Order {
+  id: ID!
+  price: Float!
+  tax: Float!
+  final_price: Float!
+}
+
+input CreateOrderInput {
+  id: ID!
+  price: Float!
+  tax: Float!
+}
+
+# Query para obter todos os pedidos
+type Query {
+  orders: [Order!]!
+}
+
+# Mutation para criar um novo pedido
+type Mutation {
+  createOrder(input: CreateOrderInput!): Order!
+}
+
