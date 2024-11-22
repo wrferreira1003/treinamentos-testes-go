@@ -44,8 +44,8 @@ func (c *CreateOrderUseCase) Execute(input dto.OrderInputDTO) (dto.OrderOutputDT
 		FinalPrice: order.FinalPrice,
 	}
 
-	c.OrderCreated.GetPayload()                // Define os dados que estao sendo gerados no evento
-	c.EventDispatcher.Dispatch(c.OrderCreated) // Dispara o evento
+	c.OrderCreated.GetPayload()                                      // Define os dados que estao sendo gerados no evento
+	c.EventDispatcher.Dispatch("clean_architecture", c.OrderCreated) // Dispara o evento
 
 	return output, nil
 }

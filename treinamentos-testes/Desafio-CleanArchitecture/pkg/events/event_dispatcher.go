@@ -36,8 +36,9 @@ func (ed *EventDispatcher) Register(eventName string, handler EventHandlerInterf
 }
 
 // Limpa os handlers registrados para um evento
-func (ed *EventDispatcher) Clear() {
+func (ed *EventDispatcher) Clear() error {
 	ed.handlers = make(map[string][]EventHandlerInterface)
+	return nil
 }
 
 // Verifica se um handler está registrado para um evento
@@ -55,12 +56,12 @@ func (ed *EventDispatcher) Has(eventName string, handler EventHandlerInterface) 
 }
 
 // Dispara um evento de forma assincrona
-func (ed *EventDispatcher) Dispatch(event EventInterface) error {
+func (ed *EventDispatcher) Dispatch(exchange string, event EventInterface) error {
 	if handlers, ok := ed.handlers[event.GetName()]; ok {
 		wg := &sync.WaitGroup{} // Garante que todos os handlers sejam executados
 		for _, handler := range handlers {
-			wg.Add(1)                    // Adiciona um goroutine ao WaitGroup
-			go handler.Handle(event, wg) // Executa o handler de forma assincrona
+			wg.Add(1)                              // Adiciona um goroutine ao WaitGroup
+			go handler.Handle(exchange, event, wg) // Executa o handler de forma assincrona
 		}
 		wg.Wait() // Aguarda todos os goroutines finalizarem
 	}

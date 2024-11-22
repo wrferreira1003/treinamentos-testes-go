@@ -29,12 +29,6 @@ func (h *WebOrderHandler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	/* Se alguem tiver corrigindo esse codigo, pode comentar no retorno do trabalho, porque o Wesley
-	Iniciou o usecase dentro do handler, onde fere os principios de responsabilidade unica e de inversao de controle
-	na minha humilde opiniao. Criei uma interface para o usecase para facilitar, no meu entendimento, dessa forma facilita
-	a criacao de testes unitarios, além de poder ser reutilizado em outras partes do sistema.
-	*/
-
 	output, err := h.CreateOrderUseCase.Execute(dto)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

@@ -1,6 +1,7 @@
 package webserver
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -23,9 +24,11 @@ func NewWebServer(webServerPort string) *WebServer {
 
 func (r *WebServer) AddHandler(path string, handler http.HandlerFunc) {
 	r.Handlers[path] = handler
+	fmt.Println("Adicionado handler para o path:", path)
 }
 
 func (r *WebServer) Start() {
+	fmt.Println("Iniciando servidor web na porta:", r.WebServerPort)
 	r.Router.Use(middleware.Logger)    // Middleware para logar as requisições
 	r.Router.Use(middleware.Recoverer) // Middleware para recuperar de panico no servidor
 
@@ -33,5 +36,6 @@ func (r *WebServer) Start() {
 		r.Router.Handle(path, handler)
 	}
 
+	fmt.Println("Servidor web iniciado na porta:", r.WebServerPort)
 	http.ListenAndServe(r.WebServerPort, r.Router)
 }

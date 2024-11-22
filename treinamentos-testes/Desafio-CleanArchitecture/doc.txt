@@ -1,0 +1,6 @@
+// Precisa fazer a migração do banco de dados
+    - Criacao da variavel com a string de conexao do banco de dados
+        export DB_URL='postgres://postgres:postgres@localhost:5434/postgres?sslmode=disable'
+    
+    - Comando para fazer a migração do banco de dados
+        migrate -database $DB_URL -path ./migrations -verbose up

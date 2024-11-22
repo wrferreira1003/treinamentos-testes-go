@@ -7,10 +7,17 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/wrferreira1003/Desafio-Clean-Architecture/internal/infra/graph"
+	"github.com/wrferreira1003/Desafio-Clean-Architecture/internal/usecase"
 )
 
-func NewServer() {
-	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
+type Resolver struct {
+	CreateOrderUseCase usecase.OrderUseCaseInterface
+}
+
+func NewServer(createOrderUseCase usecase.OrderUseCaseInterface) {
+	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{
+		OrderUseCase: createOrderUseCase,
+	}}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)

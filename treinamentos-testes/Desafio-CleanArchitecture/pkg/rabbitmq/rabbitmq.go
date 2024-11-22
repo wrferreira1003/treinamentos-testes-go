@@ -1,12 +1,19 @@
 package rabbitmq
 
 import (
+	"fmt"
+
 	amqp "github.com/rabbitmq/amqp091-go"
+	"github.com/wrferreira1003/Desafio-Clean-Architecture/config"
 )
 
+type RabbitMQ struct {
+	Config *config.Config
+}
+
 // Abre uma conexão com o RabbitMQ e retorna um canal de comunicação
-func OpenChannelConnection(exchange string, queue string) (*amqp.Channel, error) {
-	conn, err := amqp.Dial("amqp://admin:admin@rabbitmq:5672/")
+func OpenChannelConnection(exchange string, queue string, r *RabbitMQ) (*amqp.Channel, error) {
+	conn, err := amqp.Dial(fmt.Sprintf("amqp://%s:%s@%s:%s/", r.Config.RabbitMQUser, r.Config.RabbitMQPassword, r.Config.RabbitMQHost, r.Config.RabbitMQPort))
 	if err != nil {
 		panic(err)
 	}
@@ -48,7 +55,7 @@ func OpenChannelConnection(exchange string, queue string) (*amqp.Channel, error)
 	err = channel.QueueBind(
 		queue,         // Nome da fila
 		"routing_key", // Routing key
-		"my_exchange", // Nome da exchange
+		exchange,      // Nome da exchange
 		false,         // NoWait
 		nil,           // Arguments
 	)

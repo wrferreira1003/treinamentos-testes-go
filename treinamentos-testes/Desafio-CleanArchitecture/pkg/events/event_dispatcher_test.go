@@ -34,7 +34,7 @@ type TestEventHandler struct {
 	ID int
 }
 
-func (h *TestEventHandler) Handle(event EventInterface, wg *sync.WaitGroup) error {
+func (h *TestEventHandler) Handle(exchange string, event EventInterface, wg *sync.WaitGroup) error {
 	return nil
 }
 
@@ -132,8 +132,8 @@ type MockHandler struct {
 }
 
 // Handle é um metodo do MockHandler que implementa o metodo Handle da interface EventHandlerInterface
-func (m *MockHandler) Handle(event EventInterface, wg *sync.WaitGroup) error {
-	m.Called(event)
+func (m *MockHandler) Handle(exchange string, event EventInterface, wg *sync.WaitGroup) error {
+	m.Called(exchange, event)
 	wg.Done()
 	return nil
 }
@@ -141,17 +141,17 @@ func (m *MockHandler) Handle(event EventInterface, wg *sync.WaitGroup) error {
 // Testa se o Dispatch funciona corretamente
 func (suite *EventDispatcherTestSuite) TestEventDispatcher_Dispatch() {
 	eh := &MockHandler{}
-	eh.On("Handle", &suite.event)
+	eh.On("Handle", "test", &suite.event)
 
 	eh2 := &MockHandler{}
-	eh2.On("Handle", &suite.event)
+	eh2.On("Handle", "test", &suite.event)
 
 	// Registra o handler
 	suite.eventDispatcher.Register(suite.event.GetName(), eh)
 	suite.eventDispatcher.Register(suite.event.GetName(), eh2)
 
 	// Dispara o evento
-	suite.eventDispatcher.Dispatch(&suite.event)
+	suite.eventDispatcher.Dispatch("test", &suite.event)
 	eh.AssertExpectations(suite.T())
 	eh2.AssertExpectations(suite.T())
 

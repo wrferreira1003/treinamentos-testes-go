@@ -1,23 +1,8 @@
 services:
-  clean_architecture-atividade:
-    build: 
-      context: .
-      dockerfile: Dockerfile
-      target: dev
-    depends_on:
-      - rabbitmq
-      - db
-    volumes:
-      - .:/app
-    ports:
-      - 8082:8082 # Porta do servidor GraphQL
-    environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres # Configuração do banco de dados
-      - RABBITMQ_URL=amqp://admin:admin@rabbitmq:5672/ # URL do RabbitMQ para conexão
   db:
     image: postgres:15
     ports:
-      - 5432:5432
+      - 5434:5432
 
     environment:
       - POSTGRES_USER=postgres
@@ -32,7 +17,7 @@ services:
       #Ajustar para variaveis de ambiente
       - 5672:5672 # RabbitMQ
       - 15672:15672 # RabbitMQ Management
-      - 15692:15692 
+      - 15692:15692
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=admin
@@ -40,6 +25,23 @@ services:
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq # Armazena os dados do RabbitMQ
       - rabbitmq_conf:/etc/rabbitmq # Armazena a configuração do RabbitMQ
+
+  clean_architecture-atividade:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    depends_on:
+      - rabbitmq
+      - db
+    volumes:
+      - .:/app
+      - ./migrations:/migrations # Monta o diretório de migrações
+    ports:
+      - 8082:8082 # Porta do servidor GraphQL
+      - 8004:8004 # Porta do servidor web
+      - 50051:50051 # Porta do servidor gRPC
+    command: ["sh", "-c", "sleep 10 && go run cmd/main.go"]
 
 volumes:
   postgres_data:
